@@ -1,37 +1,38 @@
-# Custom links in Elementor Image Carousel - WordPress Plugin
+# Custom links in Elementor Image Carousel (HackIndex Patched)
 
-This plugin lets you add custom links in Elementor Image Carousel widget
+> [!IMPORTANT]
+> This is an unofficial fork of [Custom links in Elementor Image Carousel](https://wordpress.org/plugins/custom-links-in-elementor-image-carousel/) by [Charlie Etienne](https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel). HackIndex is not affiliated with or endorsed by the original author.
 
-## Description
+The original plugin is no longer maintained and its latest release (1.1.1) has a [known vulnerability](https://www.wordfence.com/threat-intel/vulnerabilities/id/53880f49-a2f0-4864-ba85-8fbf06ea7833). HackIndex maintains this fork for security fixes only:
 
-There is a WordPress limitation (no custom link on images) that makes impossible to add custom links on each image in an image carousel or image gallery like the one in Elementor free version.
+- We fix security issues and keep the plugin working on current WordPress and PHP versions.
+- We do not add features or change how the plugin works.
+- It is a drop-in replacement: same plugin folder and meta fields, so the custom links on your images keep working.
 
-This plugin just overrides WordPress attachment fields and Elementor Image Carousel widget to let you add custom links to each image in the carousel.
-Basically, it adds two custom fields to each image in WordPress Media Library (Custom link and "Open in new tab?" checkbox).
-Then it hooks into elementor image carousel widget just before it's rendered on frontend.
+Need help with this fork? [Open an issue](https://github.com/HackIndex-io/custom-links-in-elementor-image-carousel/issues) here, please don't contact the original author about it.
 
-## Usage & Documentation
+## What it does
 
-No options, no premium version, no bullshit. Just activate or deactivate.
+Adds a "Custom link" and "Open in new tab?" field to every image in the Media Library, and uses that link for the image in the Elementor Image Carousel widget. No options, just activate it.
 
-## Resources
+## Security fixes
 
-* **WordPress Plugin:** [https://wordpress.org/plugins/custom-links-in-elementor-image-carousel](https://wordpress.org/plugins/custom-links-in-elementor-image-carousel)
-* **GitHub Repository:** [https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel](https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel)
-* **Support:** [https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel/issues](https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel/issues)
+### 1.1.2
 
-## Installation
+- Author+ stored Cross-Site Scripting ([CVE-2026-65534](https://www.cve.org/CVERecord?id=CVE-2026-65534), [Wordfence advisory](https://www.wordfence.com/threat-intel/vulnerabilities/id/53880f49-a2f0-4864-ba85-8fbf06ea7833)): the custom link was saved and printed in the carousel without any sanitizing, so an author could add a `javascript:` link or break out of the `href` attribute. The link is now sanitized on save and escaped on output, which also neutralizes links that were stored before the update.
+- Fixed PHP warnings when saving an image without the custom link fields
+- Tested with WordPress 7.1, Elementor 4.3 and PHP 8.5
 
-1. Install this plugin either via the WordPress.org plugin directory, or by uploading the files to your server.
-2. Activate the plugin.
-3. That's it. You're ready to go! Please, refer to the Usage & Documentation section for examples and how-to information.
+## Install
 
-## Frequently Asked Questions
+1. Download `custom-links-in-elementor-image-carousel.zip` from the [latest release](https://github.com/HackIndex-io/custom-links-in-elementor-image-carousel/releases/latest).
+2. Deactivate and delete the original plugin. The links on your images are kept.
+3. Upload the zip in **Plugins > Add New > Upload Plugin** and activate it.
 
-> Is this plugin completely free?
+WordPress does not update this fork automatically. Watch this repo's releases to get new security fixes.
 
-Yes.
+## License
 
-> Can I use this plugin for commercial purposes?
+GPLv2 or later, like the original. See [LICENSE.txt](LICENSE.txt). Provided without any warranty.
 
-Sure, go ahead! It is completely open source.
+All credit for the plugin goes to [Charlie Etienne](https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel). The full upstream history is kept in this repository.
