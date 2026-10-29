@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Custom links in Elementor Image Carousel
- * Description:       Add custom links in Elementor Image Carousel widget
- * Version:           1.1.1
+ * Plugin Name:       Custom links in Elementor Image Carousel (HackIndex Patched)
+ * Description:       Add custom links in Elementor Image Carousel widget (HackIndex Patched)
+ * Version:           1.1.2
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Charlie Etienne
@@ -11,6 +11,8 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       custom-links-eicw
  * Domain Path:       /languages
+ *
+ * Modified by HackIndex on 2026-10-29: security fixes. Fork of https://github.com/CharlieEtienne/custom-links-in-elementor-image-carousel
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -74,11 +76,11 @@ class CustomLinksEICW {
 	 * @return WP_Post|array|null
 	 */
 	public function attachment_fields_to_save( $post, $attachment ) {
-		$attachment_link = $attachment[ 'elementor_carousel_custom_link' ];
-		$formated_link   = $attachment_link ?? '';
+		$attachment_link = $attachment[ 'elementor_carousel_custom_link' ] ?? null;
+		$formated_link   = esc_url_raw( $attachment_link ?? '' );
 		update_post_meta( $post[ 'ID' ], 'elementor_carousel_custom_link', $formated_link );
 
-		$attachment_target = $attachment[ 'elementor_carousel_custom_link_target' ];
+		$attachment_target = $attachment[ 'elementor_carousel_custom_link_target' ] ?? null;
 		$formated_target   = isset( $attachment_target ) ? ( ( $attachment_target == 'on' ) ? '1' : '0' ) : 0;
 		update_post_meta( $post[ 'ID' ], 'elementor_carousel_custom_link_target', $formated_target );
 
@@ -124,7 +126,7 @@ class CustomLinksEICW {
 					$link_key = 'link_' . $index;
 
 					if ( $this->get_custom_link( $attachment ) ) {
-						$link_tag = '<a data-elementor-open-lightbox="no" href="' . $this->get_custom_link( $attachment ) . '" target="' . $this->get_link_target( $attachment ) . '">';
+						$link_tag = '<a data-elementor-open-lightbox="no" href="' . esc_url( $this->get_custom_link( $attachment ) ) . '" target="' . esc_attr( $this->get_link_target( $attachment ) ) . '">';
 					} else {
 						$link_tag = '<a ' . $widget->get_render_attribute_string( $link_key ) . '>';
 					}
