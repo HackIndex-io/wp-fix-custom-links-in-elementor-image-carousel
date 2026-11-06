@@ -26,8 +26,8 @@ Adds a "Custom link" and "Open in new tab?" field to every image in the Media Li
 ## Install
 
 1. Download `custom-links-in-elementor-image-carousel.zip` from the [latest release](https://github.com/HackIndex-io/custom-links-in-elementor-image-carousel/releases/latest).
-2. Deactivate and delete the original plugin. The links on your images are kept.
-3. Upload the zip in **Plugins > Add New > Upload Plugin** and activate it.
+2. Upload the zip in **Plugins > Add New > Upload Plugin** and choose **Replace current with uploaded**. The links on your images are kept.
+3. Don't delete the original plugin first: deleting a plugin can run its uninstall and remove its settings.
 
 WordPress does not update this fork automatically. Watch this repo's releases to get new security fixes.
 
